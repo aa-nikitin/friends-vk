@@ -4,9 +4,8 @@ import {
     FETCH_FRIENDS_FAILURE
 } from '../constants';
 
-export const fetchFriendsRequest = value => ({
-    type: FETCH_FRIENDS_REQUEST,
-    payload: value
+export const fetchFriendsRequest = () => ({
+    type: FETCH_FRIENDS_REQUEST
 });
 
 export const fetchFriendsSuccess = value => ({

@@ -1,27 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchFriendsRequest } from './actions';
+import React from 'react';
+import Friends from './containers/friends';
 import './App.css';
 
-class App extends Component {
-    componentDidMount() {
-        const { fetchFriendsRequest } = this.props;
-        fetchFriendsRequest('as');
-    }
-    render() {
-        const { friends } = this.props;
-        console.log(friends);
-        return <div>sdf</div>;
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        friends: state.friends
-    };
+const App = () => {
+    return <Friends />;
 };
 
-export default connect(
-    mapStateToProps,
-    { fetchFriendsRequest }
-)(App);
+export default App;

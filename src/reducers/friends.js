@@ -11,7 +11,7 @@ const friendsList = (state = initialState, { type, payload = {} }) => {
         case FETCH_FRIENDS_REQUEST:
             return { ...state, friends: [], isLoading: true };
         case FETCH_FRIENDS_SUCCESS:
-            return { ...state, friends: payload.items, isLoading: false };
+            return { ...state, friends: payload, isLoading: false };
         case FETCH_FRIENDS_FAILURE:
             return { ...state, error: payload, isLoading: false };
         default:

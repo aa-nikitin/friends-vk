@@ -26,3 +26,12 @@ export const callAPI = (method, params) => {
         });
     });
 };
+
+export const geocode = city =>
+    fetch(
+        `https://geocode-maps.yandex.ru/1.x/?format=json&apikey=8cc1e667-fcfb-4f33-9a2f-cd93ef0d7ba5&geocode=${city}&lang=en-US`,
+        {
+            method: 'GET',
+            mode: 'cors'
+        }
+    ).then(response => response.json());
