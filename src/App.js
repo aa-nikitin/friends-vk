@@ -1,5 +1,5 @@
 import React from 'react';
-import Friends from './containers/friends';
+import Friends from './containers/friendsMap';
 import './App.css';
 
 const App = () => {

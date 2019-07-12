@@ -1,20 +1,24 @@
 import { createSelector } from 'reselect';
 
-import { geocode } from './api';
-
 export const getSeriesImages = createSelector(
     state => state.friends.friends,
     friends => {
         // console.log(friends);
         return friends.map(
-            ({ id, first_name, last_name, city: { title } = {} }) => {
+            ({
+                id,
+                first_name,
+                last_name,
+                city: { title } = {},
+                pointCity
+            }) => {
                 const aaa = {
                     id,
                     first_name,
                     last_name,
-                    city: title
+                    city: title,
+                    pointCity
                 };
-                // console.log(aaa);
                 return aaa;
             }
         );

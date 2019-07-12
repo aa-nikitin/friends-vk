@@ -1,36 +1,64 @@
-import { fetchFriendsSuccess, fetchFriendsFailure } from '../actions';
+import {
+    fetchFriendsSuccess,
+    fetchFriendsFailure,
+    fetchCitiesSuccess
+} from '../actions';
 import { FETCH_FRIENDS_REQUEST } from '../constants';
 import { auth, callAPI, geocode } from '../api';
+
+const idApp = '7052362';
 
 const middleware = store => next => action => {
     if (action.type === FETCH_FRIENDS_REQUEST) {
         (async () => {
             try {
-                await auth('6488338', 2);
+                await auth(idApp, 2);
                 const friends = await callAPI('friends.get', {
                     fields: 'city',
                     v: '5.100'
                 });
-                // console.log(friends);
-                const ccc = friends.items.map(item => {
-                    const { city: { title: city } = {} } = item;
+                const citiesList = [];
+                const cities = [];
+                const promiseFriends = friends.items.map(item => {
+                    const {
+                        id,
+                        first_name,
+                        last_name,
+                        city: { title: city, id: cityId } = {}
+                    } = item;
                     if (city) {
                         return geocode(city).then(response => {
-                            const pointCity = response.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(
-                                ' '
-                            );
-                            return { ...item, pointCity };
-                        });
+                            const pointCity = response.split(' ');
+                            const validItem = {
+                                id,
+                                first_name,
+                                last_name
+                            };
+                            if (citiesList.indexOf(city) < 0) {
+                                citiesList.push(city);
+                                cities.push({
+                                    id: cityId,
+                                    name: city,
+                                    friends: [validItem],
+                                    pointCity: [+pointCity[1], +pointCity[0]]
+                                });
+                            } else {
+                                const checkCity = citiesList.indexOf(city);
+                                cities[checkCity].friends.push(validItem);
+                            }
 
-                        // console.log(aaa);
-                        // return { ...item, city };
+                            return {
+                                ...item,
+                                pointCity: [+pointCity[1], +pointCity[0]]
+                            };
+                        });
                     }
-                    // console.log(item);
+
                     return item;
                 });
-                Promise.all(ccc).then(function(results) {
+                store.dispatch(fetchCitiesSuccess(cities));
+                Promise.all(promiseFriends).then(function(results) {
                     store.dispatch(fetchFriendsSuccess(results));
-                    // return results;
                 });
             } catch (e) {
                 store.dispatch(fetchFriendsFailure(e.message));

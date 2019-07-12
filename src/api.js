@@ -34,4 +34,11 @@ export const geocode = city =>
             method: 'GET',
             mode: 'cors'
         }
-    ).then(response => response.json());
+    )
+        .then(response => {
+            return response.json();
+        })
+        .then(response => {
+            return response.response.GeoObjectCollection.featureMember[0]
+                .GeoObject.Point.pos;
+        });
