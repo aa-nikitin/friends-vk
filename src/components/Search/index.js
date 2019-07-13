@@ -1,12 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
-const Search = () => {
+const Search = ({ value, changeSearch, findFriends }) => {
     return (
         <div className="search">
-            <input className="search__item" type="text" />
+            <input
+                onChange={changeSearch}
+                onKeyPress={findFriends}
+                className="search__item"
+                value={value}
+            />
         </div>
     );
+};
+
+Search.propTypes = {
+    changeSearch: PropTypes.func,
+    findFriends: PropTypes.func,
+    value: PropTypes.string
+};
+
+Search.defaultProps = {
+    changeSearch: () => {},
+    findFriends: () => {},
+    value: ''
 };
 
 export default Search;

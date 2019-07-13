@@ -15,6 +15,7 @@ class FriendsMap extends Component {
             zoom: 7,
             behaviors: ['default', 'scrollZoom']
         },
+        search: '',
         friends: []
     };
     handleClickFriend = coords => {
@@ -22,7 +23,8 @@ class FriendsMap extends Component {
             const { mapData } = this.state;
 
             this.setState({
-                mapData: { ...mapData, center: coords }
+                mapData: { ...mapData, center: coords },
+                search: ''
             });
         }
     };
@@ -33,7 +35,7 @@ class FriendsMap extends Component {
             return item.name === city;
         });
 
-        this.setState({ friends: friendsInCity[0].friends });
+        this.setState({ friends: friendsInCity[0].friends, search: '' });
     };
 
     allFriends = (friends, isState = false) => {
@@ -49,20 +51,50 @@ class FriendsMap extends Component {
         }
     };
 
+    findFriends = ({ key }) => {
+        const { search } = this.state;
+        const { friends } = this.props;
+        if (!key || key === 'Enter') {
+            const friendsValid = friends.filter(item => {
+                const nameFriend = `${item.first_name} ${item.last_name}`;
+
+                return item.city && nameFriend.indexOf(search) >= 0;
+            });
+            this.setState({
+                friends: friendsValid,
+                search: ''
+            });
+        }
+    };
+
+    // findFriends = (searchString, friends) => {
+    //     console.log(searchString);
+    //     const friendsValid = friends.filter(item => {
+    //         return item.city;
+    //     });
+    //     this.setState({
+    //         friends: friendsValid
+    //     });
+    // };
+
+    changeSearch = ({ target: { value } }) => {
+        this.setState({ search: value });
+    };
+
     componentDidMount() {
         const { fetchFriendsRequest } = this.props;
         fetchFriendsRequest();
     }
     render() {
         const { cities, isLoading, error, friends } = this.props;
-        const { mapData, friends: friendsState } = this.state;
+        const { mapData, friends: friendsState, search } = this.state;
         const friendArr = !friendsState.length
             ? this.allFriends(friends)
             : friendsState;
 
         if (isLoading) return <div>Данные загружаются...</div>;
         if (error) return <div>{error}</div>;
-
+        // console.log(search);
         return (
             <div className="friends-map">
                 <div className="friends-map__left">
@@ -77,7 +109,11 @@ class FriendsMap extends Component {
                         friends={friends}
                         allFriends={this.allFriends}
                     />
-                    <Search />
+                    <Search
+                        value={search}
+                        changeSearch={this.changeSearch}
+                        findFriends={this.findFriends}
+                    />
                     <Friends
                         friends={friendArr}
                         handleClickFriend={this.handleClickFriend}
