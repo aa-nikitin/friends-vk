@@ -1,0 +1,7 @@
+.friends-item {
+    font-family: 'Andika', sans-serif;
+}
+
+.friends-item__name {
+    cursor: pointer;
+}

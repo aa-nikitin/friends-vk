@@ -1,0 +1,13 @@
+.friends-map {
+    display: flex;
+}
+
+.friends-map__left {
+    width: 80%;
+}
+
+.friends-map__right {
+    width: 20%;
+    max-height: 100vh;
+    overflow-y: auto;
+}
