@@ -11,21 +11,24 @@ const Friend = ({
     handleClickFriend
 }) => {
     return (
-        <div
-            className="friends-item"
-            onClick={() => handleClickFriend(pointCity)}
-        >
+        <div className="friends-item">
             <a
+                className="friends-item__link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={`https://vk.com/id${id}`}
             >
-                <i className="fas fa-link" />
+                <i className="fas fa-link friends-item__icon" />
             </a>
-            <span className="friends-item__name">
-                {firstName} {lastName}
-            </span>
-            {city && <span>({city})</span>}
+            <div className="friends-item__name">
+                <span
+                    className="friends-item__fio"
+                    onClick={() => handleClickFriend(pointCity)}
+                >
+                    {firstName} {lastName}
+                </span>
+                {city && <span className="friends-item__city">({city})</span>}
+            </div>
         </div>
     );
 };

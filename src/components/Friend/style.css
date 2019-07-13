@@ -1,7 +1,31 @@
 .friends-item {
     font-family: 'Andika', sans-serif;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.friends-item__name {
+.friends-item__link {
+    margin-right: 10px;
+    color: #000;
+    transition: 0.5s;
+}
+
+.friends-item__link:hover {
+    color: rgba(0, 0, 0, 0.404);
+}
+
+.friends-item__fio {
+    display: inline-block;
+    margin-right: 5px;
     cursor: pointer;
+}
+
+.friends-item__fio:hover {
+    text-decoration: underline;
+}
+
+.friends-item__city {
+    font-size: 12px;
 }

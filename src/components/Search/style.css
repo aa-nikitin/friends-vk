@@ -1,0 +1,11 @@
+.search {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.search__item {
+    width: 100%;
+    outline: none;
+    padding: 10px;
+}

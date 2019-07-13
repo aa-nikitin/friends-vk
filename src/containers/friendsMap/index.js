@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchFriendsRequest } from '../../actions';
-import Menu from '../../components/Menu';
+import AllFriends from '../../components/AllFriends';
 import Friends from '../../components/Friends';
 import YandexMap from '../../components/YandexMap';
+import Search from '../../components/Search';
 import { getSeriesImages } from '../../selectors';
 import './style.css';
-
-// const mapData = {
-//     center: [55.751574, 37.573856],
-//     zoom: 5
-// };
 
 class FriendsMap extends Component {
     state = {
@@ -63,7 +59,7 @@ class FriendsMap extends Component {
         const friendArr = !friendsState.length
             ? this.allFriends(friends)
             : friendsState;
-        // console.log(friends.length);
+
         if (isLoading) return <div>Данные загружаются...</div>;
         if (error) return <div>{error}</div>;
 
@@ -77,7 +73,11 @@ class FriendsMap extends Component {
                     />
                 </div>
                 <div className="friends-map__right">
-                    <Menu friends={friends} allFriends={this.allFriends} />
+                    <AllFriends
+                        friends={friends}
+                        allFriends={this.allFriends}
+                    />
+                    <Search />
                     <Friends
                         friends={friendArr}
                         handleClickFriend={this.handleClickFriend}

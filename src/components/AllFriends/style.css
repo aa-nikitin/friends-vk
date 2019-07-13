@@ -1,0 +1,18 @@
+.all-friends {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px 13px;
+    background: rgb(0, 118, 185);
+
+    color: #fff;
+    font-family: 'Andika', sans-serif;
+    transition: 0.5s;
+}
+.all-friends:hover {
+    background: rgb(0, 162, 255);
+}
+.all-friends__icon {
+    margin-right: 10px;
+}
