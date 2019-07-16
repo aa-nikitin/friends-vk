@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 import friends from './friends';
 
-const rootReducers = combineReducers({
+export default combineReducers({
     friends
 });
-
-export default rootReducers;

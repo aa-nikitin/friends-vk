@@ -1,15 +1,15 @@
 import {
     fetchFriendsSuccess,
     fetchFriendsFailure,
-    fetchCitiesSuccess
-} from '../actions';
-import { FETCH_FRIENDS_REQUEST } from '../constants';
-import { auth, callAPI, geocode } from '../api';
+    fetchFriendsCity,
+    fetchFriendsRequest
+} from './actions';
+import { auth, callAPI, geocode } from '../../api';
 
 const idApp = '7052362';
 
 const middleware = store => next => action => {
-    if (action.type === FETCH_FRIENDS_REQUEST) {
+    if (action.type === fetchFriendsRequest.toString()) {
         (async () => {
             try {
                 await auth(idApp, 2);
@@ -56,7 +56,7 @@ const middleware = store => next => action => {
 
                     return item;
                 });
-                store.dispatch(fetchCitiesSuccess(cities));
+                store.dispatch(fetchFriendsCity(cities));
                 Promise.all(promiseFriends).then(function(results) {
                     store.dispatch(fetchFriendsSuccess(results));
                 });
@@ -67,4 +67,4 @@ const middleware = store => next => action => {
     }
     return next(action);
 };
-export default middleware;
+export { middleware };

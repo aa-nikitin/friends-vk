@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchFriendsRequest } from '../../actions';
+import { fetchFriendsRequest } from '../../modules/friends';
 import AllFriends from '../../components/AllFriends';
 import Friends from '../../components/Friends';
 import YandexMap from '../../components/YandexMap';
 import Search from '../../components/Search';
-import { getSeriesImages } from '../../selectors';
+import {
+    getFriends,
+    getCities,
+    getIsLoading,
+    getError
+} from '../../modules/friends';
 import './style.css';
 
 class FriendsMap extends Component {
@@ -56,7 +61,9 @@ class FriendsMap extends Component {
         const { friends } = this.props;
         if (!key || key === 'Enter') {
             const friendsValid = friends.filter(item => {
-                const nameFriend = `${item.first_name} ${item.last_name}`;
+                const nameFriend = `${item.first_name} ${
+                    item.last_name
+                }`.toLowerCase();
 
                 return item.city && nameFriend.indexOf(search) >= 0;
             });
@@ -66,16 +73,6 @@ class FriendsMap extends Component {
             });
         }
     };
-
-    // findFriends = (searchString, friends) => {
-    //     console.log(searchString);
-    //     const friendsValid = friends.filter(item => {
-    //         return item.city;
-    //     });
-    //     this.setState({
-    //         friends: friendsValid
-    //     });
-    // };
 
     changeSearch = ({ target: { value } }) => {
         this.setState({ search: value });
@@ -126,10 +123,10 @@ class FriendsMap extends Component {
 
 const mapStateToProps = state => {
     return {
-        friends: getSeriesImages(state),
-        cities: state.friends.cities,
-        isLoading: state.friends.isLoading,
-        error: state.friends.error
+        friends: getFriends(state),
+        cities: getCities(state),
+        isLoading: getIsLoading(state),
+        error: getError(state)
     };
 };
 

@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 // import { save } from 'redux-localstorage-simple';
-import rootReducers from './reducers';
-import middleware from './middlewares';
+import rootReducers from './modules';
+import { middleware } from './modules/friends';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
