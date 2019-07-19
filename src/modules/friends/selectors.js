@@ -6,6 +6,7 @@ export const getError = state => state.friends.error;
 export const getFriends = createSelector(
     state => state.friends.friends,
     friends => {
+        // console.log(friends);
         return friends.map(
             ({
                 id,

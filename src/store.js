@@ -1,7 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 // import { save } from 'redux-localstorage-simple';
+import createSagaMiddleware from 'redux-saga';
 import rootReducers from './modules';
-import { middleware } from './modules/friends';
+// import { middleware } from './modules/friends';
+import { sagas } from './modules/friends';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
@@ -12,12 +14,17 @@ const composeEnhancers =
         : compose;
 /* eslint-enable */
 
-const configStore = preloadedState =>
-    createStore(
+const configStore = preloadedState => {
+    const sagaMiddleware = createSagaMiddleware();
+
+    const store = createStore(
         rootReducers,
         preloadedState,
-        composeEnhancers(applyMiddleware(middleware))
+        composeEnhancers(applyMiddleware(sagaMiddleware))
     );
+    sagaMiddleware.run(sagas);
+    return store;
+};
 
 const store = configStore({});
 

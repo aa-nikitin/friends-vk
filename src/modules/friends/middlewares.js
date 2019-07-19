@@ -5,14 +5,13 @@ import {
     fetchFriendsRequest
 } from './actions';
 import { auth, callAPI, geocode } from '../../api';
-
-const idApp = '7052362';
+import { ID_APP } from '../../constants';
 
 const middleware = store => next => action => {
     if (action.type === fetchFriendsRequest.toString()) {
         (async () => {
             try {
-                await auth(idApp, 2);
+                await auth(ID_APP, 2);
                 const friends = await callAPI('friends.get', {
                     fields: 'city',
                     v: '5.100'
