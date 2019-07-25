@@ -88,7 +88,6 @@ class FriendsMap extends Component {
         const friendArr = !friendsState.length
             ? this.allFriends(friends)
             : friendsState;
-
         if (isLoading) return <div>Данные загружаются...</div>;
         if (error) return <div>{error}</div>;
         // console.log(search);
@@ -120,6 +119,8 @@ class FriendsMap extends Component {
         );
     }
 }
+
+export { FriendsMap };
 
 const mapStateToProps = state => {
     return {

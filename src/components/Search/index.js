@@ -10,6 +10,7 @@ const Search = ({ value, changeSearch, findFriends }) => {
                 onKeyPress={findFriends}
                 className="search__item"
                 value={value}
+                name="search-friends"
             />
         </div>
     );

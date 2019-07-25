@@ -61,7 +61,7 @@ function* fetchSearch() {
             fields: 'city',
             v: '5.100'
         });
-        console.log(friends);
+
         const promiseFriends = yield call(friendsHandle, friends);
 
         yield put(fetchFriendsCity(cities));
