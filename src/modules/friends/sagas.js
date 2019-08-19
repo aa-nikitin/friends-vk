@@ -10,7 +10,7 @@ import { ID_APP } from '../../constants';
 const citiesList = [];
 const cities = [];
 
-function friendsHandle(friends) {
+export function friendsHandle(friends) {
     const promiseFriends = friends.items.map(item => {
         const {
             id,
@@ -54,7 +54,7 @@ function friendsHandle(friends) {
     });
 }
 
-function* fetchSearch() {
+export function* fetchSearch() {
     try {
         yield call(auth, ID_APP, 2);
         const friends = yield call(callAPI, 'friends.get', {
